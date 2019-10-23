@@ -11,6 +11,7 @@
 
 <script>
 import CountriesList from "./components/CountriesList.vue";
+import {eventBus} from "./main.js"
 
 
 export default {
@@ -23,6 +24,10 @@ export default {
 
   },
   mounted(){
+    eventBus.$on("country-selected", (country) => {
+      this.selectedCountry = country;
+    });
+
     fetch("https://restcountries.eu/rest/v2/all")
     .then(response => response.json())
     .then(countries => this.countries = countries)
